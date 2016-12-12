@@ -18,8 +18,8 @@ ADD start-mysqld.sh /start-mysqld.sh
 RUN chmod 755 /*.sh
 ADD my.cnf /etc/mysql/conf.d/my.cnf
 
-RUN ln -s /etc/supervisor/conf.d/supervisord-apache2.conf supervisord-apache2.conf
-RUN ln -s /etc/supervisor/conf.d/supervisord-mysqld.conf supervisord-mysqld.conf 
+RUN ln -s supervisord-apache2.conf /etc/supervisor/conf.d/supervisord-apache2.conf
+RUN ln -s supervisord-mysqld.conf /etc/supervisor/conf.d/supervisord-mysqld.conf
 
 
 ##
@@ -31,6 +31,7 @@ RUN ln -s /TheUbuntuBox-WebDocument /var/www
 ##
 ##
 EXPOSE 80
+VOLUME /TheUbuntuBox-Config
 VOLUME /TheUbuntuBox-WebDocument
 
 
