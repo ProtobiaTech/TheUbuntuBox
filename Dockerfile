@@ -11,20 +11,27 @@ RUN apt-get update \
 
 ##
 ##
-WORKDIR /TheConfig
-COPY . /TheConfig
+WORKDIR /TheUbuntuBox-Config
+COPY . /TheUbuntuBox-Config
 ADD start-apache2.sh /start-apache2.sh
 ADD start-mysqld.sh /start-mysqld.sh
 RUN chmod 755 /*.sh
 ADD my.cnf /etc/mysql/conf.d/my.cnf
-ADD supervisord-apache2.conf /etc/supervisor/conf.d/supervisord-apache2.conf
-ADD supervisord-mysqld.conf /etc/supervisor/conf.d/supervisord-mysqld.conf
+
+RUN ln -s /etc/supervisor/conf.d/supervisord-apache2.conf supervisord-apache2.conf
+RUN ln -s /etc/supervisor/conf.d/supervisord-mysqld.conf supervisord-mysqld.conf 
+
+
+##
+##
+WORKDIR /TheUbuntuBox-WebDocument
+RUN ln -s /TheUbuntuBox-WebDocument /var/www
 
 
 ##
 ##
 EXPOSE 80
-# VOLUME /WebDocument
+VOLUME /TheUbuntuBox-WebDocument
 
 
 ##
@@ -35,5 +42,5 @@ ENV PHP_POST_MAX_SIZE 10M
 
 ##
 ##
-ENTRYPOINT ["/bin/bash", "/TheConfig/docker-entrypoint.sh"]
+ENTRYPOINT ["/bin/bash", "/TheUbuntuBox-Config/docker-entrypoint.sh"]
 CMD ["supervisord -n"]
