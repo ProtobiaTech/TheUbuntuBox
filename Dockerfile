@@ -1,25 +1,24 @@
-FROM ubuntu:14.04
+FROM ubuntu:trusty
 MAINTAINER Rod <rod@protobia.tech>
 
-##
+# Install packages
 RUN apt-get update \
     && apt-get install -y \
-        git \
-        curl
-
-
-##
-## 安装 node npm 等
-RUN curl -sL https://deb.nodesource.com/setup_6.x | bash \
-&& apt-get install -y nodejs \
-&& npm install -g bower \
-&& npm install -g bower-npm-resolver
+    supervisor git apache2 libapache2-mod-php5 mysql-server php5-mysql pwgen php-apc php5-mcrypt \
+    curl \
+    && echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
 
 ##
 ##
 EXPOSE 80
 VOLUME /WebDocument
+
+
+## Environment
+ENV PHP_UPLOAD_MAX_FILESIZE 10M
+ENV PHP_POST_MAX_SIZE 10M
+
 
 ENTRYPOINT ["/bin/bash", "/app/docker-entrypoint.sh"]
 CMD ["/bin/bash"]
