@@ -31,4 +31,4 @@ ENV PHP_POST_MAX_SIZE 10M
 ##
 ##
 ENTRYPOINT ["/bin/bash", "/WebDocument/docker-entrypoint.sh"]
-CMD ["apache2-foreground"]
+CMD ["apachectl -DFOREGROUND"]
