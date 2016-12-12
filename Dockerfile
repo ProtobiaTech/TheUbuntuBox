@@ -30,5 +30,6 @@ ENV PHP_POST_MAX_SIZE 10M
 
 ##
 ##
+RUN pwd && ls -la && ls -la /WebDocument
 ENTRYPOINT ["/bin/bash", "/WebDocument/docker-entrypoint.sh"]
 CMD ["supervisord -n"]
