@@ -11,14 +11,24 @@ RUN apt-get update \
 
 ##
 ##
+WORKDIR /WebDocument
+COPY . /WebDocument
+RUN chown -R :www-data . && chmod g+w .
+
+
+##
+##
 EXPOSE 80
 VOLUME /WebDocument
 
 
+##
 ## Environment
 ENV PHP_UPLOAD_MAX_FILESIZE 10M
 ENV PHP_POST_MAX_SIZE 10M
 
 
-ENTRYPOINT ["/bin/bash", "/docker-entrypoint.sh"]
+##
+##
+ENTRYPOINT ["/bin/bash", "/WebDocument/docker-entrypoint.sh"]
 CMD ["supervisord -n"]
