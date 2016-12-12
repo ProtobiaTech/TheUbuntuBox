@@ -17,12 +17,6 @@ RUN curl -sL https://deb.nodesource.com/setup_6.x | bash \
 
 
 ##
-## 安装 Composer，此物是 PHP 用来管理依赖关系的工具
-RUN curl -sS https://getcomposer.org/installer \
-    | php -- --install-dir=/usr/local/bin --filename=composer
-
-
-##
 ##
 EXPOSE 80
 VOLUME /WebDocument
