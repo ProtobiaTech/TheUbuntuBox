@@ -20,5 +20,4 @@ ENV PHP_UPLOAD_MAX_FILESIZE 10M
 ENV PHP_POST_MAX_SIZE 10M
 
 
-ENTRYPOINT ["/bin/bash", "/app/docker-entrypoint.sh"]
 CMD ["/bin/bash"]
