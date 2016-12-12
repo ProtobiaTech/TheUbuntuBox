@@ -11,15 +11,21 @@ RUN apt-get update \
 
 ##
 ##
-WORKDIR /WebDocument
-COPY . /WebDocument
-RUN chown -R :www-data . && chmod g+w .
+WORKDIR /TheConfig
+COPY . /TheConfig
+ADD start-apache2.sh /start-apache2.sh
+ADD start-mysqld.sh /start-mysqld.sh
+ADD run.sh /run.sh
+RUN chmod 755 /*.sh
+ADD my.cnf /etc/mysql/conf.d/my.cnf
+ADD supervisord-apache2.conf /etc/supervisor/conf.d/supervisord-apache2.conf
+ADD supervisord-mysqld.conf /etc/supervisor/conf.d/supervisord-mysqld.conf
 
 
 ##
 ##
 EXPOSE 80
-VOLUME /WebDocument
+# VOLUME /WebDocument
 
 
 ##
@@ -31,4 +37,4 @@ ENV PHP_POST_MAX_SIZE 10M
 ##
 ##
 ENTRYPOINT ["/bin/bash", "/WebDocument/docker-entrypoint.sh"]
-CMD ["apachectl -D FOREGROUND"]
+CMD ["supervisord -n"]
