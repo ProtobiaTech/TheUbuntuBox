@@ -35,5 +35,5 @@ ENV PHP_POST_MAX_SIZE 10M
 
 ##
 ##
-ENTRYPOINT ["/bin/bash", "/WebDocument/docker-entrypoint.sh"]
+ENTRYPOINT ["/bin/bash", "/TheConfig/docker-entrypoint.sh"]
 CMD ["supervisord -n"]
